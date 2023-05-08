@@ -39,9 +39,8 @@ export class BranchService {
     return this.http.get<IBranch[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
-  branches(req?: any): Observable<EntityArrayResponseType> {
-    const options = createRequestOption(req);
-    return this.http.get<IBranch[]>(this.resourceUrl, { params: options, observe: 'response' });
+  brancheNames(): Observable<string[]> {
+    return this.http.get<string[]>(this.resourceUrl + '/names');
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {

@@ -180,4 +180,9 @@ public class BranchResource {
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
             .build();
     }
+
+    @GetMapping("/branches/names")
+    public List<String> getAllBranchesNames() {
+        return branchService.getAllBranchesNames();
+    }
 }

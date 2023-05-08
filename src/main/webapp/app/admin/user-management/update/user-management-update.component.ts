@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { IUser } from '../user-management.model';
 import { UserManagementService } from '../service/user-management.service';
+import { BranchService } from 'app/entities/branch/service/branch.service';
 
 const userTemplate = {} as IUser;
 
@@ -39,9 +40,10 @@ export class UserManagementUpdateComponent implements OnInit {
     }),
     activated: new FormControl(userTemplate.activated, { nonNullable: true }),
     authorities: new FormControl(userTemplate.authorities, { nonNullable: true }),
+    branches: new FormControl(userTemplate.branches, { nonNullable: true }),
   });
 
-  constructor(private userService: UserManagementService, private route: ActivatedRoute) {}
+  constructor(private userService: UserManagementService, private route: ActivatedRoute, private branchService: BranchService) {}
 
   ngOnInit(): void {
     this.route.data.subscribe(({ user }) => {
@@ -52,6 +54,7 @@ export class UserManagementUpdateComponent implements OnInit {
       }
     });
     this.userService.authorities().subscribe(authorities => (this.authorities = authorities));
+    this.branchService.brancheNames().subscribe(brn => (this.branches = brn));
   }
 
   previousState(): void {

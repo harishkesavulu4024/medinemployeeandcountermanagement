@@ -26,6 +26,7 @@
           <th scope="col" jhiSortBy="email"><span>Email</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col"></th>
           <th scope="col"><span>Profiles</span></th>
+          <th scope="col"><span>Branches</span></th>
           <th scope="col" jhiSortBy="createdDate"><span>Created date</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="lastModifiedBy"><span>Modified by</span> <fa-icon icon="sort"></fa-icon></th>
           <th scope="col" jhiSortBy="lastModifiedDate"><span>Modified date</span> <fa-icon icon="sort"></fa-icon></th>
@@ -53,6 +54,11 @@
           <td>
             <div *ngFor="let authority of user.authorities">
               <span class="badge bg-info">{{ authority }}</span>
+            </div>
+          </td>
+          <td>
+            <div *ngFor="let branch of user.branches">
+              <span class="badge bg-info">{{ branch }}</span>
             </div>
           </td>
           <td>{{ user.createdDate | date: 'dd/MM/yy HH:mm' }}</td>

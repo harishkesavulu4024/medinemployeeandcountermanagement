@@ -175,7 +175,7 @@ public class UserService {
             Set<Branch> branches = userDTO
                 .getBranches()
                 .stream()
-                .map(brn -> branchRepository.findById(Long.valueOf(brn)))
+                .map(brn -> branchRepository.findByName(brn))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .collect(Collectors.toSet());
@@ -221,7 +221,7 @@ public class UserService {
                 userDTO
                     .getBranches()
                     .stream()
-                    .map(brn -> branchRepository.findById(Long.valueOf(brn)))
+                    .map(brn -> branchRepository.findByName(brn))
                     .filter(Optional::isPresent)
                     .map(Optional::get)
                     .forEach(managedBranches::add);
@@ -293,12 +293,12 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthoritiesByLogin(String login) {
-        return userRepository.findOneWithAuthoritiesByLogin(login);
+        return userRepository.findOneWithAuthoritiesAndBranchesByLogin(login);
     }
 
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthorities() {
-        return SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesByLogin);
+        return SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesAndBranchesByLogin);
     }
 
     /**

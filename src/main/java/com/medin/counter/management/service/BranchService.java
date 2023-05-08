@@ -1,6 +1,7 @@
 package com.medin.counter.management.service;
 
 import com.medin.counter.management.service.dto.BranchDTO;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -55,4 +56,6 @@ public interface BranchService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    List<String> getAllBranchesNames();
 }

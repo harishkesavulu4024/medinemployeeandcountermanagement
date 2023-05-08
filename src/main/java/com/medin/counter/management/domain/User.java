@@ -90,7 +90,7 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
     private Set<Authority> authorities = new HashSet<>();
 
     @JsonIgnore
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "branch_users",
         joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") },

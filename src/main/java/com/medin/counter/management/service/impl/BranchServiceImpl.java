@@ -5,7 +5,9 @@ import com.medin.counter.management.repository.BranchRepository;
 import com.medin.counter.management.service.BranchService;
 import com.medin.counter.management.service.dto.BranchDTO;
 import com.medin.counter.management.service.mapper.BranchMapper;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -80,5 +82,11 @@ public class BranchServiceImpl implements BranchService {
     public void delete(Long id) {
         log.debug("Request to delete Branch : {}", id);
         branchRepository.deleteById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<String> getAllBranchesNames() {
+        return branchRepository.findAll().stream().map(Branch::getName).collect(Collectors.toList());
     }
 }

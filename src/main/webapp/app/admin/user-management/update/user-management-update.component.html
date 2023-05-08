@@ -88,6 +88,12 @@
           <option *ngFor="let authority of authorities" [value]="authority">{{ authority }}</option>
         </select>
       </div>
+      <div class="mb-3">
+        <label>Branches</label>
+        <select class="form-control" multiple name="branch" formControlName="branches">
+          <option *ngFor="let branch of branches" [value]="branch">{{ branch }}</option>
+        </select>
+      </div>
       <button type="button" class="btn btn-secondary" (click)="previousState()">
         <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
       </button>

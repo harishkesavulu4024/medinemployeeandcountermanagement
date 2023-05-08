@@ -1,6 +1,7 @@
 package com.medin.counter.management.repository;
 
 import com.medin.counter.management.domain.Branch;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 
@@ -9,4 +10,6 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface BranchRepository extends JpaRepository<Branch, Long> {}
+public interface BranchRepository extends JpaRepository<Branch, Long> {
+    Optional<Branch> findByName(String branchName);
+}
