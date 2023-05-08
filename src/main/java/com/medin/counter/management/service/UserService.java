@@ -2,12 +2,15 @@ package com.medin.counter.management.service;
 
 import com.medin.counter.management.config.Constants;
 import com.medin.counter.management.domain.Authority;
+import com.medin.counter.management.domain.Branch;
 import com.medin.counter.management.domain.User;
 import com.medin.counter.management.repository.AuthorityRepository;
+import com.medin.counter.management.repository.BranchRepository;
 import com.medin.counter.management.repository.UserRepository;
 import com.medin.counter.management.security.AuthoritiesConstants;
 import com.medin.counter.management.security.SecurityUtils;
 import com.medin.counter.management.service.dto.AdminUserDTO;
+import com.medin.counter.management.service.dto.BranchDTO;
 import com.medin.counter.management.service.dto.UserDTO;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -38,10 +41,18 @@ public class UserService {
 
     private final AuthorityRepository authorityRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
+    private final BranchRepository branchRepository;
+
+    public UserService(
+        UserRepository userRepository,
+        PasswordEncoder passwordEncoder,
+        AuthorityRepository authorityRepository,
+        BranchRepository branchRepository
+    ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
+        this.branchRepository = branchRepository;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -160,6 +171,16 @@ public class UserService {
                 .collect(Collectors.toSet());
             user.setAuthorities(authorities);
         }
+        if (userDTO.getBranches() != null) {
+            Set<Branch> branches = userDTO
+                .getBranches()
+                .stream()
+                .map(brn -> branchRepository.findById(Long.valueOf(brn)))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toSet());
+            user.setBranches(branches);
+        }
         userRepository.save(user);
         log.debug("Created Information for User: {}", user);
         return user;
@@ -195,6 +216,15 @@ public class UserService {
                     .filter(Optional::isPresent)
                     .map(Optional::get)
                     .forEach(managedAuthorities::add);
+                Set<Branch> managedBranches = user.getBranches();
+                managedBranches.clear();
+                userDTO
+                    .getBranches()
+                    .stream()
+                    .map(brn -> branchRepository.findById(Long.valueOf(brn)))
+                    .filter(Optional::isPresent)
+                    .map(Optional::get)
+                    .forEach(managedBranches::add);
                 log.debug("Changed Information for User: {}", user);
                 return user;
             })

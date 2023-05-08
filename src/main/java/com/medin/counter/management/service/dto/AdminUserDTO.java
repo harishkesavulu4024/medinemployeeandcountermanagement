@@ -2,6 +2,7 @@ package com.medin.counter.management.service.dto;
 
 import com.medin.counter.management.config.Constants;
 import com.medin.counter.management.domain.Authority;
+import com.medin.counter.management.domain.Branch;
 import com.medin.counter.management.domain.User;
 import java.io.Serializable;
 import java.time.Instant;
@@ -51,6 +52,8 @@ public class AdminUserDTO implements Serializable {
 
     private Set<String> authorities;
 
+    private Set<String> branches;
+
     public AdminUserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -69,6 +72,7 @@ public class AdminUserDTO implements Serializable {
         this.lastModifiedBy = user.getLastModifiedBy();
         this.lastModifiedDate = user.getLastModifiedDate();
         this.authorities = user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet());
+        this.branches = user.getBranches().stream().map(Branch::getName).collect(Collectors.toSet());
     }
 
     public Long getId() {
@@ -173,6 +177,14 @@ public class AdminUserDTO implements Serializable {
 
     public void setAuthorities(Set<String> authorities) {
         this.authorities = authorities;
+    }
+
+    public Set<String> getBranches() {
+        return branches;
+    }
+
+    public void setBranches(Set<String> branches) {
+        this.branches = branches;
     }
 
     // prettier-ignore

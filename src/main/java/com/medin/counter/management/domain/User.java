@@ -89,6 +89,16 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
 
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+        name = "branch_users",
+        joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") },
+        inverseJoinColumns = { @JoinColumn(name = "branch_id", referencedColumnName = "id") }
+    )
+    @BatchSize(size = 20)
+    private Set<Branch> branches = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -209,6 +219,14 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
     public int hashCode() {
         // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
         return getClass().hashCode();
+    }
+
+    public Set<Branch> getBranches() {
+        return branches;
+    }
+
+    public void setBranches(Set<Branch> branches) {
+        this.branches = branches;
     }
 
     // prettier-ignore
