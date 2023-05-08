@@ -11,7 +11,7 @@ import org.mapstruct.*;
  */
 @Mapper(componentModel = "spring")
 public interface BranchMapper extends EntityMapper<BranchDTO, Branch> {
-    //@Mapping(target = "address", source = "address", qualifiedByName = "addressId")
+    @Mapping(target = "address", source = "address", qualifiedByName = "addressId")
     BranchDTO toDto(Branch s);
 
     @Named("addressId")

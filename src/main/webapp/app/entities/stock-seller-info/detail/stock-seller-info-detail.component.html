@@ -1,0 +1,44 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="stockSellerInfo">
+      <h2 data-cy="stockSellerInfoDetailsHeading"><span>Stock Seller Info</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ stockSellerInfo.id }}</span>
+        </dd>
+        <dt><span>Distributor Name</span></dt>
+        <dd>
+          <span>{{ stockSellerInfo.distributorName }}</span>
+        </dd>
+        <dt><span>Payment Date</span></dt>
+        <dd>
+          <span>{{ stockSellerInfo.paymentDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Total Amount</span></dt>
+        <dd>
+          <span>{{ stockSellerInfo.totalAmount }}</span>
+        </dd>
+        <dt><span>User</span></dt>
+        <dd>
+          <span>{{ stockSellerInfo.user?.login }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/stock-seller-info', stockSellerInfo.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

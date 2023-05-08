@@ -18,6 +18,7 @@ const newUser: IUser = {
 export class UserManagementUpdateComponent implements OnInit {
   authorities: string[] = [];
   isSaving = false;
+  branches: string[] = [];
 
   editForm = new FormGroup({
     id: new FormControl(userTemplate.id),

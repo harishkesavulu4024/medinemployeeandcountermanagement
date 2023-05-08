@@ -1,6 +1,6 @@
 <div>
   <h2 id="page-heading" data-cy="BranchHeading">
-    <span>Medin Pharmacy Branches</span>
+    <span>Branches</span>
 
     <div class="d-flex justify-content-end">
       <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
@@ -80,7 +80,7 @@
           <td>{{ branch.description }}</td>
           <td>
             <div *ngIf="branch.address">
-              <a [routerLink]="['/address', branch.address.id, 'view']">View address details</a>
+              <a [routerLink]="['/address', branch.address.id, 'view']">{{ branch.address.id }}</a>
             </div>
           </td>
           <td class="text-end">
