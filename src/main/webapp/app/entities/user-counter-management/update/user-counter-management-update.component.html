@@ -1,0 +1,149 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-user-counter-management-heading" data-cy="UserCounterManagementCreateUpdateHeading">
+        Create or edit a User Counter Management
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
+            <option *ngIf="!editForm.get('user')!.value" [ngValue]="null" selected></option>
+            <option [ngValue]="userOption" *ngFor="let userOption of usersSharedCollection">{{ userOption.login }}</option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['user'])!.invalid && (editForm.get(['user'])!.dirty || editForm.get(['user'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['user'])?.errors?.required"> This field is required. </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_branch">Branch</label>
+          <select
+            class="form-control"
+            id="field_branch"
+            data-cy="branch"
+            name="branch"
+            formControlName="branch"
+            [compareWith]="compareBranch"
+          >
+            <option *ngIf="!editForm.get('branch')!.value" [ngValue]="null" selected></option>
+            <option [ngValue]="branchOption" *ngFor="let branchOption of branchesSharedCollection">{{ branchOption.name }}</option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['branch'])!.invalid && (editForm.get(['branch'])!.dirty || editForm.get(['branch'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['branch'])?.errors?.required"> This field is required. </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_openingTime">Opening Time</label>
+          <div class="d-flex">
+            <input
+              id="field_openingTime"
+              data-cy="openingTime"
+              type="datetime-local"
+              class="form-control"
+              name="openingTime"
+              formControlName="openingTime"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          <div *ngIf="editForm.get('openingTime')!.invalid && (editForm.get('openingTime')!.dirty || editForm.get('openingTime')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('openingTime')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('openingTime')?.errors?.datetimelocal">
+              This field should be a date and time.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_closingTime">Closing Time</label>
+          <div class="d-flex">
+            <input
+              id="field_closingTime"
+              data-cy="closingTime"
+              type="datetime-local"
+              class="form-control"
+              name="closingTime"
+              formControlName="closingTime"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          <div *ngIf="editForm.get('closingTime')!.invalid && (editForm.get('closingTime')!.dirty || editForm.get('closingTime')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('closingTime')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('closingTime')?.errors?.datetimelocal">
+              This field should be a date and time.
+            </small>
+          </div>
+        </div>
+        <!-- Denomination start-->
+        <div class="row mb-3">
+          <label class="form-label" for="field_denominations">Denominations</label>
+          <input
+            type="text"
+            class="form-control"
+            name="denominations"
+            id="field_denominations"
+            data-cy="denominations"
+            formControlName="denominations"
+          />
+          <div
+            *ngIf="
+              editForm.get('denominations')!.invalid && (editForm.get('denominations')!.dirty || editForm.get('denominations')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('denominations')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <!-- Denomination end-->
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_totalAmount">Total Amount</label>
+          <input
+            type="number"
+            class="form-control"
+            name="totalAmount"
+            id="field_totalAmount"
+            data-cy="totalAmount"
+            formControlName="totalAmount"
+          />
+          <div *ngIf="editForm.get('totalAmount')!.invalid && (editForm.get('totalAmount')!.dirty || editForm.get('totalAmount')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('totalAmount')?.errors?.required"> This field is required. </small>
+            <small class="form-text text-danger" [hidden]="!editForm.get('totalAmount')?.errors?.number">
+              This field should be a number.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_notes">Notes</label>
+          <input type="textarea" class="form-control" name="notes" id="field_notes" data-cy="notes" formControlName="notes" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

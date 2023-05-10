@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="userCounterManagement">
+      <h2 data-cy="userCounterManagementDetailsHeading"><span>User Counter Management</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ userCounterManagement.id }}</span>
+        </dd>
+        <dt><span>Total Amount</span></dt>
+        <dd>
+          <span>{{ userCounterManagement.totalAmount }}</span>
+        </dd>
+        <dt><span>Notes</span></dt>
+        <dd>
+          <span>{{ userCounterManagement.notes }}</span>
+        </dd>
+        <dt><span>Opening Time</span></dt>
+        <dd>
+          <span>{{ userCounterManagement.openingTime | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Closing Time</span></dt>
+        <dd>
+          <span>{{ userCounterManagement.closingTime | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Denominations</span></dt>
+        <dd>
+          <!-- <span>{{ userCounterManagement.denominations }}</span> -->
+          <span *ngFor="let denom of userCounterManagement.denominations | keyvalue"> {{ denom.key }} * {{ denom.value }} <br /> </span>
+        </dd>
+        <dt><span>User</span></dt>
+        <dd>
+          <span>{{ userCounterManagement.user?.login }}</span>
+        </dd>
+        <dt><span>Branch</span></dt>
+        <dd>
+          <div *ngIf="userCounterManagement.branch">
+            <!-- <a [routerLink]="['/branch', userCounterManagement.branch.id, 'view']"></a> -->
+            {{ userCounterManagement.branch.name }}
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/user-counter-management', userCounterManagement.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

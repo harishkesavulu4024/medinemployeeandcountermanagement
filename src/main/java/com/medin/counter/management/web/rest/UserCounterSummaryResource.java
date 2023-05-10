@@ -70,7 +70,7 @@ public class UserCounterSummaryResource {
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of branches in body.
      */
-    @GetMapping("/usercountersummaries")
+    @GetMapping("/usercountersummary")
     public ResponseEntity<List<UserCounterSummaryDTO>> getAllUserCounterSummaries(
         @org.springdoc.api.annotations.ParameterObject Pageable pageable
     ) {

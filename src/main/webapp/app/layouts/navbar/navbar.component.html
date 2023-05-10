@@ -82,6 +82,18 @@
             <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
           </ul>
         </li>
+        <li>
+          <a
+            class="dropdown-item"
+            routerLink="user-counter-management"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="collapseNavbar()"
+          >
+            <fa-icon icon="asterisk" [fixedWidth]="true"></fa-icon>
+            <span>User Counter Management</span>
+          </a>
+        </li>
         <li
           *jhiHasAnyAuthority="'ROLE_ADMIN'"
           ngbDropdown

@@ -19,6 +19,11 @@ import { RouterModule } from '@angular/router';
         data: { pageTitle: 'StockSellerInfos' },
         loadChildren: () => import('./stock-seller-info/stock-seller-info.module').then(m => m.StockSellerInfoModule),
       },
+      {
+        path: 'user-counter-management',
+        data: { pageTitle: 'UserCounterManagements' },
+        loadChildren: () => import('./user-counter-management/user-counter-management.module').then(m => m.UserCounterManagementModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],
