@@ -22,6 +22,9 @@ export class UserCounterManagementUpdateComponent implements OnInit {
 
   usersSharedCollection: IUser[] = [];
   branchesSharedCollection: IBranch[] = [];
+  denomValues: string[] = ['2000', '500', '200', '100', '50', '20', '10', '5', '2', '1'];
+  totalAmountDisabled = true;
+  denominationMap = new Map();
 
   editForm: UserCounterManagementFormGroup = this.userCounterManagementFormService.createUserCounterManagementFormGroup();
 
@@ -50,6 +53,10 @@ export class UserCounterManagementUpdateComponent implements OnInit {
 
   previousState(): void {
     window.history.back();
+  }
+
+  saveDenominationDetails(): void {
+    console.log('Api details');
   }
 
   save(): void {

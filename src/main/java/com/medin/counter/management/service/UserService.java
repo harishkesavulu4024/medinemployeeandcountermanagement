@@ -43,6 +43,8 @@ public class UserService {
 
     private final BranchRepository branchRepository;
 
+    private static final String DEFAULT_PASSWORD = "Welcome@123";
+
     public UserService(
         UserRepository userRepository,
         PasswordEncoder passwordEncoder,
@@ -156,7 +158,7 @@ public class UserService {
         } else {
             user.setLangKey(userDTO.getLangKey());
         }
-        String encryptedPassword = passwordEncoder.encode(RandomUtil.generatePassword());
+        String encryptedPassword = passwordEncoder.encode(DEFAULT_PASSWORD);
         user.setPassword(encryptedPassword);
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(Instant.now());
