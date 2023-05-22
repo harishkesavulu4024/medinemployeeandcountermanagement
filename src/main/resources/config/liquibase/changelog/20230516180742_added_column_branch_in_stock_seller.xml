@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity UserCounterSummary.
+    -->
+    <changeSet id="20230516180742-1" author="jhipster">
+        <addColumn tableName="stock_seller_info">
+            <column name="branch_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+        </addColumn>
+
+
+        <addForeignKeyConstraint baseColumnNames="branch_id"
+                                 baseTableName="stock_seller_info"
+                                 constraintName="fk_stock_seller_info_branch_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="branch"/>
+    </changeSet>
+</databaseChangeLog>
